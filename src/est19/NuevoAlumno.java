@@ -190,6 +190,10 @@ public class NuevoAlumno extends javax.swing.JDialog {
 
         jLabel3.setText("Apellido Materno:");
 
+        tfAPaterno.setNextFocusableComponent(tfAMaterno);
+
+        tfAMaterno.setNextFocusableComponent(tfGrado);
+
         jLabel7.setText("Telefono:");
 
         jLabel8.setText("Nombre Mama");
@@ -209,6 +213,7 @@ public class NuevoAlumno extends javax.swing.JDialog {
 
         jLabel5.setText("Grupo:");
 
+        tfGrupo.setNextFocusableComponent(tfDomicilio);
         tfGrupo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfGrupoActionPerformed(evt);
