@@ -11,7 +11,6 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-
 public class Principal extends javax.swing.JFrame {
 
     private ArrayList<Alumno> listaAlumnos = new ArrayList<>();
@@ -52,16 +51,16 @@ public class Principal extends javax.swing.JFrame {
         lImagen.setText(null);
         lImagen.setIcon(new ImageIcon(newImg));
     }
-    
-    public boolean datosCompletos () {
-        if (taCausa.getText().equals("")){
+
+    public boolean datosCompletos() {
+        if (taCausa.getText().equals("")) {
             return false;
         } else if (tfMaestro.getText().equals("")) {
             return false;
         } else if (tfFecha.getDate() == null) {
             return false;
         }
-        
+
         return true;
     }
 
@@ -74,7 +73,10 @@ public class Principal extends javax.swing.JFrame {
 
         if (listaAlumnos.isEmpty()) {
             JOptionPane.showMessageDialog(this, "No hay alumnos de " + grado + " " + grupo, "", JOptionPane.ERROR_MESSAGE, null);
+            bGuardar.setEnabled(false);
             return;
+        } else {
+            bGuardar.setEnabled(true);
         }
 
         String[] nombres = new String[listaAlumnos.size()];
@@ -93,9 +95,13 @@ public class Principal extends javax.swing.JFrame {
         SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
         return f.format(d);
     }
+    
+    private void vaciarCampos(){
+        taCausa.setText(null);
+        tfMaestro.setText(null);
+        taObservaciones.setText(null);
+    }
 
-    
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -119,7 +125,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         taObservaciones = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
+        bGuardar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -198,11 +204,11 @@ public class Principal extends javax.swing.JFrame {
         taObservaciones.setWrapStyleWord(true);
         jScrollPane2.setViewportView(taObservaciones);
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton1.setText("Guardar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        bGuardar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        bGuardar.setText("Guardar");
+        bGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                bGuardarActionPerformed(evt);
             }
         });
 
@@ -228,7 +234,7 @@ public class Principal extends javax.swing.JFrame {
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1))
+                        .addComponent(bGuardar))
                     .addGroup(panelContenedorLayout.createSequentialGroup()
                         .addComponent(lImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(panelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -258,7 +264,7 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(panelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelContenedorLayout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(bGuardar)
                         .addGap(35, 35, 35))
                     .addGroup(panelContenedorLayout.createSequentialGroup()
                         .addGroup(panelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -350,14 +356,15 @@ public class Principal extends javax.swing.JFrame {
         new Reportes(this, true).setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
         if (datosCompletos()) {
             agregarReporte();
+            vaciarCampos();
         } else {
             JOptionPane.showMessageDialog(this, "Tienes que rellenar todos los campos", "", JOptionPane.ERROR_MESSAGE, null);
         }
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
+
+    }//GEN-LAST:event_bGuardarActionPerformed
 
     private void tfMaestroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfMaestroActionPerformed
         // TODO add your handling code here:
@@ -409,10 +416,10 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bGuardar;
     private javax.swing.JComboBox cbGrado;
     private javax.swing.JComboBox cbGrupo;
     private javax.swing.JComboBox cbNombre;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

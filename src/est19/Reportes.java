@@ -12,10 +12,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Miguel
- */
+
 public class Reportes extends javax.swing.JDialog {
 
     private ArrayList<Alumno> listaAlumnos = new ArrayList<>();
@@ -99,7 +96,8 @@ public class Reportes extends javax.swing.JDialog {
             cbReporte.setEnabled(false);
             tfMaestro.setEditable(false);
             taCausa.setEditable(false);
-            tfNo.setText("" + 0);
+            tfReportes.setText("" + 0);
+            tfSus.setText(""+0);
             taObservaciones.setEditable(false);
             jCheckBox2.setSelected(false);
             jCheckBox2.setEnabled(false);
@@ -120,7 +118,8 @@ public class Reportes extends javax.swing.JDialog {
         int itemSelected = cbReporte.getSelectedIndex();
         taCausa.setText(reportes.get(itemSelected).getCausa());
         taObservaciones.setText(reportes.get(itemSelected).getObservaciones());
-        tfNo.setText("" + reportes.size());
+        tfReportes.setText("" + reportes.size());
+        tfSus.setText(reportes.size()/3+"");
         tfMaestro.setText(reportes.get(itemSelected).getMaestro());
         jDateChooser1.setDate(reportes.get(itemSelected).getFecha());
         // System.out.println("Tiene reportes");
@@ -142,7 +141,7 @@ public class Reportes extends javax.swing.JDialog {
         cbNombre = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        tfNo = new javax.swing.JTextField();
+        tfReportes = new javax.swing.JTextField();
         tfSus = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         cbReporte = new javax.swing.JComboBox();
@@ -203,8 +202,8 @@ public class Reportes extends javax.swing.JDialog {
 
         jLabel5.setText("No. de Suspensiones");
 
-        tfNo.setEditable(false);
-        tfNo.setBackground(new java.awt.Color(255, 255, 255));
+        tfReportes.setEditable(false);
+        tfReportes.setBackground(new java.awt.Color(255, 255, 255));
 
         tfSus.setEditable(false);
         tfSus.setBackground(new java.awt.Color(255, 255, 255));
@@ -279,7 +278,7 @@ public class Reportes extends javax.swing.JDialog {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
-                                    .addComponent(tfNo, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(tfReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(37, 37, 37)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -353,7 +352,7 @@ public class Reportes extends javax.swing.JDialog {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(tfReportes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(14, 14, 14)
                                 .addComponent(cbReporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -395,7 +394,7 @@ public class Reportes extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 748, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -544,7 +543,7 @@ public class Reportes extends javax.swing.JDialog {
     private javax.swing.JTextArea taCausa;
     private javax.swing.JTextArea taObservaciones;
     private javax.swing.JTextField tfMaestro;
-    private javax.swing.JTextField tfNo;
+    private javax.swing.JTextField tfReportes;
     private javax.swing.JTextField tfSus;
     // End of variables declaration//GEN-END:variables
 }

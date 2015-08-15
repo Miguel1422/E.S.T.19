@@ -83,7 +83,7 @@ public class NuevoAlumno extends javax.swing.JDialog {
             } else {
                 JOptionPane.showMessageDialog(null, "Error no se ha podido registrar el alumno", "", JOptionPane.ERROR_MESSAGE, null);
             }
-        } catch (Exception e) {
+        } catch (NumberFormatException | HeadlessException e) {
             JOptionPane.showMessageDialog(null, "Error " + e.getMessage(), "", JOptionPane.ERROR_MESSAGE, null);
 
         }
@@ -137,6 +137,23 @@ public class NuevoAlumno extends javax.swing.JDialog {
         taEnfermedades.setText(null);
         taAlergias.setText(null);
         lImagen.setIcon(null);
+    }
+
+    private boolean verificarDatos() {
+        //if (!(tfNombre == null || tfAMaterno == null || tfAPaterno == null || tfGrado == null || tfGrupo == null)){
+        //  System.out.println("Datos completos");
+        //}
+
+        if (!(tfNombre.getText().equals("") || tfAPaterno.getText().equals("") || tfAMaterno.getText().equals(""))) {
+            if (!(tfGrado.getText().equals("") || tfGrupo.getText().equals(""))) {
+                if (!(tfDomicilio.getText().equals("") || tfTelefono.getText().equals(""))) {
+                    if (!(tfNMama.getText().equals("") || tfNPapa.getText().equals("") || tfTEmergencia.getText().equals(""))) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -204,6 +221,12 @@ public class NuevoAlumno extends javax.swing.JDialog {
 
         lImagen.setText("Imagen");
 
+        tfGrado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfGradoKeyTyped(evt);
+            }
+        });
+
         jButton1.setText("Examinar");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -217,6 +240,11 @@ public class NuevoAlumno extends javax.swing.JDialog {
         tfGrupo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfGrupoActionPerformed(evt);
+            }
+        });
+        tfGrupo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfGrupoKeyTyped(evt);
             }
         });
 
@@ -412,7 +440,11 @@ public class NuevoAlumno extends javax.swing.JDialog {
     }//GEN-LAST:event_tfGrupoActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        guardarAlumno();
+        if (verificarDatos()) {
+            guardarAlumno();
+        } else {
+            JOptionPane.showMessageDialog(null, "Compruebe que todos los datos esten rellenados", "", JOptionPane.ERROR_MESSAGE, null);
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -424,6 +456,37 @@ public class NuevoAlumno extends javax.swing.JDialog {
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         cambiarImagen();
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void tfGradoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfGradoKeyTyped
+        char c = evt.getKeyChar();
+        int n = 0;
+        try {
+            n = Integer.parseInt("" + c);
+        } catch (Exception e) {
+        }
+
+        if (Character.isLetter(c) || tfGrado.getText().length() >= 1 || n > 3) {
+            //getToolkit().beep();
+            evt.consume();
+            System.out.println("Solo numeros menores que 4");
+
+        }
+
+    }//GEN-LAST:event_tfGradoKeyTyped
+
+    private void tfGrupoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfGrupoKeyTyped
+        char c = evt.getKeyChar();
+        String a = "" + c;
+        if (Character.isDigit(c) || tfGrupo.getText().length() >= 1 || (c != 'a' && c != 'b' && c != 'A' && c != 'B')) {
+            //getToolkit().beep();
+            evt.consume();
+            //System.out.println("Solo letras a o b");
+        } else {
+            evt.consume();
+            System.out.println(a.toUpperCase());
+            tfGrupo.setText(a.toUpperCase());
+        }
+    }//GEN-LAST:event_tfGrupoKeyTyped
 
     /**
      * @param args the command line arguments
@@ -460,6 +523,7 @@ public class NuevoAlumno extends javax.swing.JDialog {
                     }
                 });
                 dialog.setVisible(true);
+
             }
         });
     }
