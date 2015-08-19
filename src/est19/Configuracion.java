@@ -9,10 +9,7 @@ import java.util.Arrays;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Miguel
- */
+
 public class Configuracion extends javax.swing.JDialog {
 
     /**

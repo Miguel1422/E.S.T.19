@@ -12,7 +12,8 @@ import java.util.Date;
 public class Conexion {
 
     private static String IP = Config.getIP();
-    private static String URL = "jdbc:mysql://" + IP + "/e.s.t.19";
+    private static String DB = "est19";
+    private static String URL = "jdbc:mysql://" + IP + "/" + DB;
     private static String USER = Config.getUSER();
     private static String PASS = Config.getPASS();
 
@@ -47,14 +48,14 @@ public class Conexion {
         setPASS(Config.getPASS());
         setUSER(Config.getUSER());
         //System.out.println(" asd " + Config.getUSER());
-        setURL("jdbc:mysql://" + getIP() + "/e.s.t.19");
+        setURL("jdbc:mysql://" + getIP() + "/" + DB);
     }
 
     public boolean agregarReporte(String maestro, String causa, String fecha, String observaciones, int idAlumnos) {
         try {
             crearConexion();
             //comando.executeUpdate("INSERT INTO reportes(idReportes,Maestro,Causa,Fecha,Observaciones,idAlumnos) VALUES("+idReportes+Maestro+Causa+Fecha+Observaciones+idAlumnos+")");
-            comando.executeUpdate("INSERT INTO `e.s.t.19`.`reportes` (`Maestro`, `Causa`, `Fecha`, `Observaciones`, `idAlumnos`) VALUES ('" + maestro + "', '" + causa + "', '" + fecha + "', '" + observaciones + "', '" + idAlumnos + "')");
+            comando.executeUpdate("INSERT INTO `" + DB + "`.`reportes` (`Maestro`, `Causa`, `Fecha`, `Observaciones`, `idAlumnos`) VALUES ('" + maestro + "', '" + causa + "', '" + fecha + "', '" + observaciones + "', '" + idAlumnos + "')");
             conexion.close();
             return true;
         } catch (SQLException ex) {
@@ -68,7 +69,7 @@ public class Conexion {
         try {
             crearConexion();
             //comando.executeUpdate("INSERT INTO reportes(idReportes,Maestro,Causa,Fecha,Observaciones,idAlumnos) VALUES("+idReportes+Maestro+Causa+Fecha+Observaciones+idAlumnos+")");
-            comando.executeUpdate("INSERT INTO `e.s.t.19`.`reportes` (`Maestro`, `Causa`, `Fecha`, `Observaciones`, `idAlumnos`) VALUES ('"
+            comando.executeUpdate("INSERT INTO `" + DB + "`.`reportes` (`Maestro`, `Causa`, `Fecha`, `Observaciones`, `idAlumnos`) VALUES ('"
                     + reporte.getMaestro() + "', '" + reporte.getCausa() + "', '"
                     + reporte.getFecha() + "', '" + reporte.getObservaciones() + "', '" + reporte.getIdAlumnos() + "')");
             conexion.close();
@@ -81,11 +82,11 @@ public class Conexion {
     }
 
     public boolean borrarReporte(Reporte r) {
-        // "DELETE FROM `e.s.t.19`.`reportes` WHERE `reportes`.`idReportes` = 3"
+        // "DELETE FROM `"+DB+"`.`reportes` WHERE `reportes`.`idReportes` = 3"
 
         try {
             crearConexion();
-            int result = comando.executeUpdate("DELETE FROM `e.s.t.19`.`reportes` WHERE `reportes`.`idReportes` = "
+            int result = comando.executeUpdate("DELETE FROM `" + DB + "`.`reportes` WHERE `reportes`.`idReportes` = "
                     + r.getIdReporte());
             if (result == 1) {
                 return true;
@@ -99,11 +100,11 @@ public class Conexion {
     }
 
     public boolean borrarReporte(int r) {
-        // "DELETE FROM `e.s.t.19`.`reportes` WHERE `reportes`.`idReportes` = 3"
+        // "DELETE FROM `"+DB+"`.`reportes` WHERE `reportes`.`idReportes` = 3"
 
         try {
             crearConexion();
-            int result = comando.executeUpdate("DELETE FROM `e.s.t.19`.`reportes` WHERE `reportes`.`idReportes` = "
+            int result = comando.executeUpdate("DELETE FROM `" + DB + "`.`reportes` WHERE `reportes`.`idReportes` = "
                     + r);
 
         } catch (SQLException ex) {
@@ -113,10 +114,10 @@ public class Conexion {
     }
 
     public boolean editarReporte(Reporte r) {
-        //UPDATE `e.s.t.19`.`reportes` SET `Maestro` = 'Primera prueba (edicion)', `Causa` = 'Reporte a 1a asd asd asd (edicion)', `Fecha` = '2015-08-04', `Observaciones` = 'Primera prueba (edicion)' WHERE `reportes`.`idReportes` = 1
+        //UPDATE `"+DB+"`.`reportes` SET `Maestro` = 'Primera prueba (edicion)', `Causa` = 'Reporte a 1a asd asd asd (edicion)', `Fecha` = '2015-08-04', `Observaciones` = 'Primera prueba (edicion)' WHERE `reportes`.`idReportes` = 1
         try {
             crearConexion();
-            int i = comando.executeUpdate("UPDATE `e.s.t.19`.`reportes` SET `Maestro` = '"
+            int i = comando.executeUpdate("UPDATE `" + DB + "`.`reportes` SET `Maestro` = '"
                     + r.getMaestro() + "', `Causa` = '"
                     + r.getCausa() + "', `Fecha` = '"
                     + obtenerFecha(r.getFecha()) + "', `Observaciones` = '"
@@ -137,10 +138,10 @@ public class Conexion {
     }
 
     public boolean editarReporte(String maestro, String causa, Date fecha, String obs, int id) {
-        //UPDATE `e.s.t.19`.`reportes` SET `Maestro` = 'Primera prueba (edicion)', `Causa` = 'Reporte a 1a asd asd asd (edicion)', `Fecha` = '2015-08-04', `Observaciones` = 'Primera prueba (edicion)' WHERE `reportes`.`idReportes` = 1
+        //UPDATE `"+DB+"`.`reportes` SET `Maestro` = 'Primera prueba (edicion)', `Causa` = 'Reporte a 1a asd asd asd (edicion)', `Fecha` = '2015-08-04', `Observaciones` = 'Primera prueba (edicion)' WHERE `reportes`.`idReportes` = 1
         try {
             crearConexion();
-            int i = comando.executeUpdate("UPDATE `e.s.t.19`.`reportes` SET `Maestro` = '"
+            int i = comando.executeUpdate("UPDATE `" + DB + "`.`reportes` SET `Maestro` = '"
                     + maestro + "', `Causa` = '" + causa + "', `Fecha` = '"
                     + fecha + "', `Observaciones` = '" + obs
                     + "' WHERE `reportes`.`idReportes` = " + id);
@@ -198,7 +199,7 @@ public class Conexion {
             System.out.println("Error: " + e.getMessage());
         }
 
-        //SELECT * FROM `e.s.t.19`.`alumnos` WHERE `idAlumnos` = 23 ORDER BY `Grado` ASC
+        //SELECT * FROM `"+DB+"`.`alumnos` WHERE `idAlumnos` = 23 ORDER BY `Grado` ASC
         return r;
     }
 
@@ -310,6 +311,44 @@ public class Conexion {
             conexion.close();
         } catch (SQLException ex) {
             System.out.println("error " + ex.toString());
+        }
+    }
+
+    public boolean subirGrado() {
+        try {
+            crearConexion();
+            ResultSet registro = comando.executeQuery("SELECT * FROM `alumnos`");
+            ArrayList<Integer> ids = new ArrayList<>();
+            ArrayList<Integer> grados = new ArrayList<>();
+
+            while (registro.next()) {
+                int i = registro.getInt("idAlumnos");
+                int g = registro.getInt("Grado");
+                ids.add(i);
+                grados.add(g);
+            }
+
+            for (int i = 0; i < ids.size(); i++) {
+                if (grados.get(i) >= 3 ||grados.get(i) == 0 ) {
+                    int r = comando.executeUpdate("UPDATE `" + DB + "`.`alumnos` SET `Grado` = '" + (0)
+                            + "' WHERE `alumnos`.`idAlumnos` = " + ids.get(i));
+                } else {
+                    int r = comando.executeUpdate("UPDATE `" + DB + "`.`alumnos` SET `Grado` = '" + (grados.get(i) + 1)
+                            + "' WHERE `alumnos`.`idAlumnos` = " + ids.get(i));
+                }
+//                if (r == 1) {
+//                    ResultSet re = comando.executeQuery("SELECT Nombre FROM `"+DB+"`.`alumnos` WHERE `alumnos`.`idAlumnos`=" + ids.get(i));
+//                    re.next();
+//                    String nombre = re.getString("Nombre");
+//                    System.out.println("Correcto para " + nombre);
+//                    //System.out.println(ids.get(i));
+//                }
+            }
+            conexion.close();
+            return true;
+        } catch (Exception e) {
+            System.out.println("ERROR");
+            return false;
         }
     }
 

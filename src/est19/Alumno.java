@@ -3,19 +3,19 @@ package est19;
 
 
 public class Alumno {
-    private int id;
-    private String nombre;
-    private String apellidoPaterno;
-    private String apellidoMaterno;
-    private int grado;
-    private String grupo;
-    private String domicilio;
-    private String telefono;
-    private String nombreMama;
-    private String nombrePapa;
-    private String telefonoEmergencia;
-    private String enfermedades;
-    private String alergias;
+    private int     id;
+    private String  nombre;
+    private String  apellidoPaterno;
+    private String  apellidoMaterno;
+    private int     grado;
+    private String  grupo;
+    private String  domicilio;
+    private String  telefono;
+    private String  nombreMama;
+    private String  nombrePapa;
+    private String  telefonoEmergencia;
+    private String  enfermedades;
+    private String  alergias;
     
     
     public String getNombreCompleto () {

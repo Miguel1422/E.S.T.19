@@ -22,10 +22,7 @@ import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.nio.file.Files;
 
-/**
- *
- * @author Miguel
- */
+
 public class NuevoAlumno extends javax.swing.JDialog {
 
     ImageIcon icono = new ImageIcon(getClass().getResource("/image/palomita.png"));
@@ -465,7 +462,7 @@ public class NuevoAlumno extends javax.swing.JDialog {
         } catch (Exception e) {
         }
 
-        if (Character.isLetter(c) || tfGrado.getText().length() >= 1 || n > 3) {
+        if (Character.isLetter(c) || tfGrado.getText().length() >= 1 || n > 3 || n==0) {
             //getToolkit().beep();
             evt.consume();
             System.out.println("Solo numeros menores que 4");

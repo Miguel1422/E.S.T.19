@@ -12,7 +12,6 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-
 public class Reportes extends javax.swing.JDialog {
 
     private ArrayList<Alumno> listaAlumnos = new ArrayList<>();
@@ -30,12 +29,19 @@ public class Reportes extends javax.swing.JDialog {
     }
 
     private void actualizarAlumnoActual() {
-        int a = cbNombre.getSelectedIndex();
-        alumnoActual = listaAlumnos.get(a);
-        cambiarImagen();
 
-        tieneReportes();
-        //System.out.println(alumnoActual.getId());
+        try {
+            int a = cbNombre.getSelectedIndex();
+            alumnoActual = listaAlumnos.get(a);
+            cambiarImagen();
+
+            tieneReportes();
+            //System.out.println(alumnoActual.getId());
+            cbNombre.setEnabled(true);
+        } catch (Exception e) {
+            cbNombre.setEnabled(false);
+        }
+
     }
 
     public void cambiarImagen() {
@@ -57,6 +63,7 @@ public class Reportes extends javax.swing.JDialog {
         listaAlumnos = c.obtenerAlumno(grado, grupo);
 
         if (listaAlumnos.isEmpty()) {
+            cbNombre.setEnabled(false);
             JOptionPane.showMessageDialog(this, "No hay alumnos de " + grado + " " + grupo, "", JOptionPane.ERROR_MESSAGE, null);
             return;
         }
@@ -97,7 +104,7 @@ public class Reportes extends javax.swing.JDialog {
             tfMaestro.setEditable(false);
             taCausa.setEditable(false);
             tfReportes.setText("" + 0);
-            tfSus.setText(""+0);
+            tfSus.setText("" + 0);
             taObservaciones.setEditable(false);
             jCheckBox2.setSelected(false);
             jCheckBox2.setEnabled(false);
@@ -109,8 +116,8 @@ public class Reportes extends javax.swing.JDialog {
         }
 
     }
-    
-    private boolean tieneReportes (Alumno a){
+
+    private boolean tieneReportes(Alumno a) {
         return !c.getReportes(a).isEmpty();
     }
 
@@ -119,7 +126,7 @@ public class Reportes extends javax.swing.JDialog {
         taCausa.setText(reportes.get(itemSelected).getCausa());
         taObservaciones.setText(reportes.get(itemSelected).getObservaciones());
         tfReportes.setText("" + reportes.size());
-        tfSus.setText(reportes.size()/3+"");
+        tfSus.setText(reportes.size() / 3 + "");
         tfMaestro.setText(reportes.get(itemSelected).getMaestro());
         jDateChooser1.setDate(reportes.get(itemSelected).getFecha());
         // System.out.println("Tiene reportes");

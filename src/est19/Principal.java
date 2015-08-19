@@ -65,7 +65,6 @@ public class Principal extends javax.swing.JFrame {
     }
 
     public void mostrarAlumnos() {
-
         int grado = cbGrado.getSelectedIndex() + 1;
         char grupo = cbGrupo.getSelectedItem().toString().charAt(0);
         //System.out.println(grado + " Grupo:" + grupo);
@@ -74,9 +73,11 @@ public class Principal extends javax.swing.JFrame {
         if (listaAlumnos.isEmpty()) {
             JOptionPane.showMessageDialog(this, "No hay alumnos de " + grado + " " + grupo, "", JOptionPane.ERROR_MESSAGE, null);
             bGuardar.setEnabled(false);
+            cbNombre.setEnabled(false);
             return;
         } else {
             bGuardar.setEnabled(true);
+            cbNombre.setEnabled(true);
         }
 
         String[] nombres = new String[listaAlumnos.size()];
@@ -95,8 +96,8 @@ public class Principal extends javax.swing.JFrame {
         SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
         return f.format(d);
     }
-    
-    private void vaciarCampos(){
+
+    private void vaciarCampos() {
         taCausa.setText(null);
         tfMaestro.setText(null);
         taObservaciones.setText(null);
@@ -131,6 +132,8 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Agregar Reporte");
@@ -328,6 +331,15 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItem2);
+        jMenu2.add(jSeparator1);
+
+        jMenuItem3.setText("Adelantar Grado");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem3);
 
         jMenuBar1.add(jMenu2);
 
@@ -382,6 +394,15 @@ public class Principal extends javax.swing.JFrame {
         mostrarAlumnos();
     }//GEN-LAST:event_cbGradoActionPerformed
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        int s = JOptionPane.showConfirmDialog(this, "Esta seguro que desea adelantar un grado");
+        if (s == JOptionPane.YES_OPTION) {
+            if (c.subirGrado()) {
+                JOptionPane.showMessageDialog(null, "Se aumento de grado correctamente ", "", JOptionPane.INFORMATION_MESSAGE, icono);
+            }
+        }
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -432,9 +453,11 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel lImagen;
     private javax.swing.JPanel panelContenedor;
     private javax.swing.JTextArea taCausa;
